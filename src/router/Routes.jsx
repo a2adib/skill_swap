@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Services from "../Pages/Services";
 import MyProfile from "../Pages/MyProfile";
 import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
         },{
           path: "/login",
           Component: Login
+        },
+        {
+          path: "/signup",
+          Component: Register
         }
     ]
   },
