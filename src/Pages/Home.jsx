@@ -5,6 +5,7 @@ import PopularSection from '../component/PopularSection';
 const Home = () => {
     return (
         <div>
+            <title>Home</title>
             <Slider/>
             <PopularSection/>
         </div>
