@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-  return (
+  const {registerWithEmailPassword} = useContext(AuthContext);
+    return (
     <div>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
@@ -38,7 +40,7 @@ const Register = () => {
                     Login
                   </Link>
                 </div>
-                <button className="btn btn-neutral mt-4">Login</button>
+                <button className="btn btn-neutral mt-4">Register</button>
               </fieldset>
             </div>
           </div>
