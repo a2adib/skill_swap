@@ -20,7 +20,6 @@ const Register = () => {
           photoURL: photoUrl
         })
           .then(() => {
-            console.log(userCredential.user);
             setUser(userCredential.user);
             
           })
@@ -51,14 +50,14 @@ const Register = () => {
                 <label className="label">Name</label>
                 <input
                   name="name"
-                  type="email"
+                  type="text"
                   className="input"
                   placeholder="Your Full Name"
                 />
                 <label className="label">PhotoUrl</label>
                 <input
                   name="photoUrl"
-                  type="email"
+                  type="text"
                   className="input"
                   placeholder="Enter your photoUrl"
                 />
@@ -74,7 +73,7 @@ const Register = () => {
                 </div>
                 <div>
                   <span>Already have an account?</span>
-                  <Link className="text-blue-500" to={"/signup"}>
+                  <Link className="text-blue-500" to={"/login"}>
                     Login
                   </Link>
                 </div>
