@@ -1,3 +1,4 @@
+import { FcGoogle } from "react-icons/fc";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useContext } from "react";
 import { Link } from "react-router";
@@ -5,7 +6,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import auth from "../firebase/firebase.config";
 
 const Login = () => {
-  const {setUser, user} = useContext(AuthContext)
+  const {setUser, handleGoogleSignin} = useContext(AuthContext)
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -22,9 +23,18 @@ const Login = () => {
         console.log(error.code);
         console.log(error.message);
       });
-  };
+  };  
 
-  console.log(user)
+  const googleSignIn = ()=>{
+    handleGoogleSignin()
+    .then(result=>{
+        const user = result.user
+        setUser(user)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+  }
 
   return (
     <div>
@@ -57,6 +67,7 @@ const Login = () => {
                   </Link>
                 </div>
                 <button className="btn btn-neutral mt-4">Login</button>
+                <button onClick={googleSignIn} className="btn mt-4"><FcGoogle /><span>login with Google</span></button>
               </form>
             </div>
           </div>

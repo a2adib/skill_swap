@@ -5,6 +5,7 @@ import Services from "../Pages/Services";
 import MyProfile from "../Pages/MyProfile";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
           Component: Services
         },{
           path: "/myprofile",
-          Component: MyProfile
+          element: <PrivetRoute><MyProfile /></PrivetRoute> 
         },{
           path: "/login",
           Component: Login
