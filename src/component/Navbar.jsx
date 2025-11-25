@@ -1,82 +1,75 @@
 import React, { useContext } from "react";
-import { Link, Links } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-    const { user } =useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext);
 
-    const handleSignOut = ()=>{
+    const handleSignOut = () => {
         signOut(auth)
-    }
+            .then(() => {
+                setUser(null);
+                toast.success("Successfully logged out!");
+            })
+            .catch(error => {
+                toast.error(error.message);
+            });
+    };
 
-  return (
-    <div>
-      <div className="navbar bg-base-100 shadow-sm">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
+    const navLinks = (
+        <>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/services">Services</NavLink></li>
+            <li><NavLink to="/myprofile">My Profile</NavLink></li>
+        </>
+    );
+
+    return (
+        <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
+            <div className="navbar-start">
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        {navLinks}
+                    </ul>
+                </div>
+                <Link to="/" className="btn btn-ghost text-xl">SkillSwap</Link>
             </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/services">Services</Link>
-              </li>
-              <li>
-                <Link to="/myprofile">My Profile</Link>
-              </li>
-            </ul>
-          </div>
-          <a className="btn btn-ghost text-xl">SkillSwap</a>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/services">Services</Link>
-            </li>
-            <li>
-              <Link to="/myprofile">My Profile</Link>
-            </li>
-          </ul>
-        </div>
-        {
-            user && <div className="navbar-end">
-            <button onClick={handleSignOut} className="btn">LogOut</button>
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal px-1">
+                    {navLinks}
+                </ul>
             </div>
-        }
-        {
-            !user && <div className="navbar-end">
-          <Link to="/login" className="btn">Login</Link>
+            <div className="navbar-end">
+                {user ? (
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar" title={user.displayName}>
+                            <div className="w-10 rounded-full">
+                                <img alt="User Avatar" src={user.photoURL || "https://i.ibb.co/612x2Mb/generic-avatar.png"} />
+                            </div>
+                        </div>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                            <li className="p-2">Hello, {user.displayName || "User"}</li>
+                            <li><Link to="/myprofile">My Profile</Link></li>
+                            <li><button onClick={handleSignOut}>Logout</button></li>
+                        </ul>
+                    </div>
+                ) : (
+                    <div className="flex items-center gap-2">
+                        <Link to="/login" className="btn btn-primary">Login</Link>
+                        <Link to="/signup" className="btn btn-secondary">Signup</Link>
+                    </div>
+                )}
+            </div>
         </div>
-        }
-        
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Navbar;
