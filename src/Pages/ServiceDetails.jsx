@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from 'react-hot-toast';
 
+import { ClipLoader } from 'react-spinners'; // Import ClipLoader
+
 const ServiceDetails = () => {
   const { id } = useParams();
   const [serviceDetails, setServiceDetails] = useState(null);
@@ -57,7 +59,7 @@ const ServiceDetails = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+        <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
   }
