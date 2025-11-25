@@ -6,6 +6,7 @@ import MyProfile from "../Pages/MyProfile";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivetRoute from "./PrivetRoute";
+import ServiceDetails from "../Pages/ServiceDetails";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         {
           path: "/signup",
           Component: Register
+        },
+        {
+          path: "/details/:id",
+          element: <PrivetRoute><ServiceDetails/></PrivetRoute>
         }
     ]
   },
