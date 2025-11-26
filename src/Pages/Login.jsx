@@ -82,7 +82,7 @@ const Login = () => {
                     placeholder="Password"
                     required
                   />
-                  <span className="absolute top-12 right-4 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                  <span className="absolute top-9 right-6 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
                   <label className="label">
