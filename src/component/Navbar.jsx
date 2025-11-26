@@ -48,25 +48,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {user ? (
-                    <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar" title={user.displayName}>
-                            <div className="w-10 rounded-full">
-                                <img alt="User Avatar" src={user.photoURL || "https://i.ibb.co/612x2Mb/generic-avatar.png"} />
-                            </div>
-                        </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li className="p-2">Hello, {user.displayName || "User"}</li>
-                            <li><Link to="/myprofile">My Profile</Link></li>
-                            <li><button onClick={handleSignOut}>Logout</button></li>
-                        </ul>
-                    </div>
-                ) : (
                     <div className="flex items-center gap-2">
-                        <Link to="/login" className="btn btn-primary">Login</Link>
-                        <Link to="/signup" className="btn btn-secondary">Signup</Link>
+                        {
+                            !user && <Link to="/login" className="btn btn-primary">Login</Link>
+                        }
+                    
+                        {
+                            user && <button onClick={handleSignOut} className="btn btn-primary">Logout</button>
+                        }
                     </div>
-                )}
             </div>
         </div>
     );
